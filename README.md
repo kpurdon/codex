@@ -26,11 +26,9 @@ When adopting this change in an existing home, back up the untracked `config.tom
 
 ## Dependencies
 
-The setup skill owns the [dependency inventory and verification](.agents/skills/setup-codex/SKILL.md#reconcile-dependencies): Builder, upstream gh-stack CLI, and its upstream skill. Add dependencies that setup must install there. External skills managed by the Skills CLI are recorded in [skills-lock.json](skills-lock.json). Setup skips usable installations and reports sign-in or permission steps requiring your action. It runs on request, not on every startup.
+The setup skill owns the [dependency inventory and verification](.agents/skills/setup-codex/SKILL.md#reconcile-dependencies): Builder, iTerm2 tabs, upstream gh-stack CLI, and its upstream skill. Add dependencies that setup must install there. External skills managed by the Skills CLI are recorded in [skills-lock.json](skills-lock.json). Setup skips usable installations and reports sign-in or permission steps requiring your action. It runs on request, not on every startup.
 
 Setup finishes with Builder's readiness checks and fresh-session verification where available. Installed packages, authenticated connections, and live handoff or deployment behavior are separate checks.
-
-For the Builder source migration, merge the generic package into `kpurdon/builder` before adopting this configuration. Run setup from the main Codex home to install `builder@kpurdon-builder`, verify it, and retire the previous `builder@semgrep-builder` installation. Start a fresh session to verify discovery. Editing the tracked config alone does not install the replacement plugin; setup uses the supported [plugin commands](https://learn.chatgpt.com/docs/developer-commands?surface=cli).
 
 ## Chrome validation
 
