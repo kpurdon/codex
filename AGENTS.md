@@ -17,4 +17,4 @@
 - An explicit project-manager assignment authorizes in-scope tracker maintenance, execution-session launches and coordination, and archiving completed or superseded sessions after preserving evidence and confirming no active descendants or unowned unfinished work remain.
 - Requested browser validation authorizes bounded read-only inspection of the relevant site; state the target and checks first. Other desktop control and live changes need established authorization.
 - Keep notifications in the conversation; do not send desktop alerts.
-- This checkout is `CODEX_HOME`. Track personal guidance, the default `config.toml`, and the setup skill; keep memories, credentials, sessions, and installed dependencies local and ignored by Git. Review config diffs before committing because clients can write machine paths and runtime settings into it.
+- This checkout is `CODEX_HOME`. Track personal guidance, the default `config.toml`, and personal skills; keep memories, credentials, sessions, and installed dependencies local and ignored by Git. Review config diffs before committing because clients can write machine paths and runtime settings into it.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chrome Validation"
+  short_description: "Validate Chrome pages through the browser client"
+  default_prompt: "Use $chrome-validation to validate the requested site or tab group in my native Chrome browser."

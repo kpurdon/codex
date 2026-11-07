@@ -39,6 +39,7 @@ Carry a setup request through installation and verification. Follow the reposito
 
 ## Verify and hand off
 
+- Verify the personal [Chrome validation skill](../../../skills/chrome-validation/SKILL.md) exists at `$target_home/skills/chrome-validation/SKILL.md`. Its runtime prerequisites are the app-managed Chrome plugin and the `node_repl` tool. Preserve their owning client's setup; report missing prerequisites without copying cached packages or changing authorization checks. Verify global skill discovery in a fresh session outside this repository after activation; run live browser validation only when requested.
 - Verify dependency identity, installation, enablement, and any required account connection separately. Use a small relevant read for connected tools; an installed plugin alone does not establish working authentication.
 - Check shell syntax and launcher definitions without starting interactive sessions. Once changes are activated, verify the selected home and default settings in a fresh launch without a profile flag, skill discovery, and Builder's installed setup/readiness skill. If this requires a user restart or unavailable client control, leave that check explicitly pending.
 - Run Builder's readiness checks from its installed package; they do not authorize launching iTerm sessions or deployment probes. Report those separately if requested.
