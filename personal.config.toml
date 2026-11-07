@@ -1,0 +1,17 @@
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
+service_tier = "fast"
+sandbox_mode = "danger-full-access"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+
+[agents]
+enabled = true
+default_subagent_model = "gpt-6-astra"
+default_subagent_reasoning_effort = "low"
+
+[tui]
+notifications = []
+status_line = ["model-with-reasoning", "project-name", "git-branch", "pull-request-number"]
+show_tooltips = false
+terminal_title = ["thread", "project"]
