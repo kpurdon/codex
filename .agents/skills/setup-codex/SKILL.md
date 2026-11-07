@@ -30,6 +30,12 @@ Carry a setup request through installation and verification. Follow the reposito
 - For additional selected plugins, resolve their exact source and identifier using the available plugin-management tools or native marketplace commands. Install through that supported path and follow its authentication flow. Keep app-bundled and workspace-managed plugins under their owning client/account; do not recreate them from local cache directories or broaden workspace permissions.
 - When an installation result is uncertain, read state before retrying. Report unresolved failures with the dependency, observed error, and next action; do not loop or silently substitute another tool.
 
+## Check browser support when requested
+
+- Follow [Chrome validation](references/chrome-validation.md) before changing browser configuration. Establish the supported client and failing boundary: tool discovery, browser-access host, extension/native host, website permission, or tab control. An enabled app-bundled plugin or a healthy CLI daemon does not prove browser access.
+- Preserve app-managed browser settings. Do not copy a desktop session's access-channel values into CLI config, remove access verification, or open a debugging port to make a probe pass. Distinguish failure of the app-bundled host from CLI browser support through MCP. Diagnose a previously working integration before changing providers; do not claim a config repair restored Chrome without runtime proof.
+- Require a fresh session using the target home and default config for a requested CLI acceptance check. Use a dedicated harmless tab, observe initial content, navigate or interact within the agreed scope, read back the result, and link captured evidence. Report any blocked step and missing screenshot/video explicitly.
+
 ## Configure launchers
 
 - Use the tracked `config.toml` as the default user configuration; preserve machine-specific integrations and app-managed fields. Reconcile existing settings before replacing an untracked config. Do not create a personal overlay or add a profile selector.

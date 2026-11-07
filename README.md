@@ -30,6 +30,10 @@ The setup skill owns the [dependency inventory and verification](.agents/skills/
 
 Setup finishes with Builder's readiness checks and fresh-session verification where available. Installed packages, authenticated connections, and live handoff or deployment behavior are separate checks.
 
+### Chrome browser validation
+
+App-bundled browser tools can be discoverable in a CLI session even when the browser-access host is unavailable. Follow the setup skill's [Chrome diagnostics and acceptance checks](.agents/skills/setup-codex/references/chrome-validation.md). Codex CLI supports Chrome through MCP servers such as Chrome DevTools MCP; the ChatGPT extension is a separate app integration. Diagnose a previously working integration before replacing it, and verify actual tab control after any repair.
+
 ## Local state
 
 The tracked `config.toml` includes this machine's integration paths and app-managed settings; it is not a portable template. Clients may modify it, so inspect config diffs before committing and reconcile paths when using another machine. Never commit credentials. Memories, sessions, credentials, databases, and plugin caches remain ignored. The [Git allowlist](.gitignore) includes personal guidance, the default config, setup instructions, and the `setup-codex` skill.
