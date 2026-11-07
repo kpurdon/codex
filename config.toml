@@ -118,3 +118,8 @@ trust_level = "trusted"
 
 [projects."/Users/kyle.purdon/code/github.com/kpurdon/codex"]
 trust_level = "trusted"
+
+[desktop]
+open-link-in-target-preference = "external-browser"
+open-local-url-in-target-preference = "external-browser"
+"browser-family-enabled:chrome" = true
