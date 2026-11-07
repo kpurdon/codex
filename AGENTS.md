@@ -16,4 +16,4 @@
 - An explicit project-manager assignment authorizes in-scope tracker maintenance, execution-session launches and coordination, and archiving completed or superseded sessions after preserving evidence and confirming no active descendants or unowned unfinished work remain.
 - Requested browser validation authorizes bounded read-only inspection of the relevant site; state the target and checks first. Other desktop control and live changes need established authorization.
 - Keep notifications in the conversation; do not send desktop alerts.
-- This checkout is `CODEX_HOME`. Track personal guidance, the portable personal profile, and setup instructions; keep machine configuration, memories, credentials, sessions, and installed dependencies local and ignored by Git.
+- This checkout is `CODEX_HOME`. Track personal guidance, the portable personal profile, and the setup skill; keep machine configuration, memories, credentials, sessions, and installed dependencies local and ignored by Git.

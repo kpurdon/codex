@@ -4,13 +4,13 @@ This checkout is the Codex home. Git tracks personal guidance, a portable settin
 
 ## Setup
 
-Set `CODEX_HOME` to the main checkout before starting Codex or installing its dependencies:
+From this checkout, ask Codex to "set up this Codex home" or invoke `$setup-codex`. The repository-local [setup skill](.agents/skills/setup-codex/SKILL.md) installs missing dependencies, prepares profile-aware launchers, and verifies readiness. It can be discovered before this checkout becomes the active home:
 
 ```sh
-export CODEX_HOME="$HOME/code/github.com/kpurdon/codex"
+codex -C "$HOME/code/github.com/kpurdon/codex" 'Use $setup-codex to set up this Codex home.'
 ```
 
-Codex reads [AGENTS.md](AGENTS.md) directly from this home. Use worktrees to edit the tracked files while keeping the runtime pointed at the main checkout.
+The intended `CODEX_HOME` is the main `kpurdon/codex` checkout. Codex reads [AGENTS.md](AGENTS.md) directly from that home. Use worktrees to edit tracked files while keeping the runtime pointed at the main checkout. Setup preserves existing state; moving an old home is a separate migration step.
 
 ## Personal settings
 
@@ -24,33 +24,12 @@ The [profile](https://learn.chatgpt.com/docs/config-file/config-advanced#profile
 
 ## Dependencies
 
-Install Builder following its [setup instructions](https://github.com/semgrep/builder#install):
+The setup skill owns the [dependency inventory and verification](.agents/skills/setup-codex/SKILL.md#reconcile-dependencies): Builder, upstream gh-stack CLI, and its upstream skill. Add explicitly selected dependencies there rather than copying installed packages into Git. Setup skips usable installations and reports sign-in or permission steps requiring your action. It runs on request, not on every startup.
 
-```sh
-codex plugin marketplace add semgrep/builder
-codex plugin add builder@semgrep-builder
-```
-
-Install gh-stack and its skill directly from [upstream](https://github.com/github/gh-stack#installation), using an authenticated GitHub CLI with `gh skill` support:
-
-```sh
-gh extension install github/gh-stack
-gh skill install github/gh-stack
-```
-
-Verify Builder's installed entry has `enabled: true`, then check gh-stack:
-
-```sh
-codex plugin list --marketplace semgrep-builder --json
-gh stack --help
-```
-
-Keep installation commands here as the dependency inventory; do not commit installed copies or cache paths. Additional plugins need their stable marketplace source and plugin selector recorded here. App-bundled and workspace-managed plugins depend on the client and signed-in workspace; configure those through the plugin browser and verify them after sign-in. Connected services still require authentication.
-
-Start a fresh conversation with the personal profile, verify the skills are discoverable, and run Builder's setup action to check available capabilities. Installation and readiness checks do not establish live handoff or deployment behavior.
+Setup finishes with Builder's readiness checks and fresh-session verification where available. Installed packages, authenticated connections, and live handoff or deployment behavior are separate checks.
 
 ## Local state
 
-Keep machine-specific paths, integrations, trust records, and app-managed settings in this checkout's ignored `config.toml`. Memories, sessions, credentials, databases, and plugin caches also live here without being committed. The [Git allowlist](.gitignore) tracks only `AGENTS.md`, `README.md`, `personal.config.toml`, and `.gitignore`.
+Keep machine-specific paths, integrations, trust records, and app-managed settings in this checkout's ignored `config.toml`. Memories, sessions, credentials, databases, and plugin caches also live here without being committed. The [Git allowlist](.gitignore) includes personal guidance, the profile, setup instructions, and the `setup-codex` skill.
 
 When migrating from an existing home, stop its clients and daemon and preserve a recoverable copy. Transfer runtime state without replacing this checkout's Git metadata or tracked guidance, and update shell, app, and configuration paths. Verify session resumption and required tools before removing the previous location.

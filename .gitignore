@@ -4,3 +4,8 @@
 !/AGENTS.md
 !/README.md
 !/personal.config.toml
+!/.agents/
+/.agents/*
+!/.agents/skills/
+/.agents/skills/*
+!/.agents/skills/setup-codex/

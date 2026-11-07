@@ -1,0 +1,4 @@
+interface:
+  display_name: "Set Up Personal Codex"
+  short_description: "Install and verify this personal Codex home"
+  default_prompt: "Use $setup-codex to set up this Codex home, install missing dependencies, and verify readiness."
