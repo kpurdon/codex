@@ -11,11 +11,18 @@ notify = ["/Users/kyle.purdon/code/github.com/kpurdon/codex/computer-use/Codex C
 source_type = "git"
 source = "git@github.com:kpurdon/builder.git"
 
+[marketplaces.kpurdon-iterm2]
+source_type = "git"
+source = "git@github.com:kpurdon/iterm2.git"
+
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/Users/kyle.purdon/code/github.com/kpurdon/codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [plugins."builder@kpurdon-builder"]
+enabled = true
+
+[plugins."iterm2@kpurdon-iterm2"]
 enabled = true
 
 [plugins."codex-app-tools@openai-bundled"]
