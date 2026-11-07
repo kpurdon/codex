@@ -1,6 +1,7 @@
 # Personal guidance
 
 - Use Builder for engineering workflows and upstream `gh-stack` for stacked PR mechanics. Keep shared procedures in their owning packages.
+- Prefer the authenticated `gh` CLI for GitHub repository, issue, PR, review, and Actions work, including `gh api` for endpoints without a dedicated command. Use the GitHub connector when explicitly requested or when `gh` cannot provide the required access or capability; do not retry a failing connector when `gh` can do the work.
 - Read the active repository's root and applicable nested `AGENTS.md` files. Discover its `.agents/skills/*/SKILL.md` files and read relevant skills, including in worktrees.
 - Write short, plain bullets without hard line wrapping. Lead with the result or decision; distinguish evidence, inference, and uncertainty.
 - Challenge assumptions with evidence. Resolve routine details independently and ask only for missing facts, consequential choices, or authority that available context cannot resolve.
@@ -16,4 +17,4 @@
 - An explicit project-manager assignment authorizes in-scope tracker maintenance, execution-session launches and coordination, and archiving completed or superseded sessions after preserving evidence and confirming no active descendants or unowned unfinished work remain.
 - Requested browser validation authorizes bounded read-only inspection of the relevant site; state the target and checks first. Other desktop control and live changes need established authorization.
 - Keep notifications in the conversation; do not send desktop alerts.
-- This checkout is `CODEX_HOME`. Track personal guidance, the portable personal profile, and the setup skill; keep machine configuration, memories, credentials, sessions, and installed dependencies local and ignored by Git.
+- This checkout is `CODEX_HOME`. Track personal guidance, the default `config.toml`, and the setup skill; keep memories, credentials, sessions, and installed dependencies local and ignored by Git. Review config diffs before committing because clients can write machine paths and runtime settings into it.

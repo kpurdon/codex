@@ -1,9 +1,9 @@
-# This checkout is CODEX_HOME; runtime configuration and state stay untracked.
+# This checkout is CODEX_HOME; runtime state stays untracked.
 /*
 !/.gitignore
 !/AGENTS.md
 !/README.md
-!/personal.config.toml
+!/config.toml
 !/.agents/
 /.agents/*
 !/.agents/skills/
