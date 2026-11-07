@@ -30,8 +30,12 @@ The setup skill owns the [dependency inventory and verification](.agents/skills/
 
 Setup finishes with Builder's readiness checks and fresh-session verification where available. Installed packages, authenticated connections, and live handoff or deployment behavior are separate checks.
 
+## Chrome validation
+
+The personal [Chrome validation skill](skills/chrome-validation/SKILL.md) uses the installed Chrome client's `setupBrowserRuntime()` through `node_repl` for Chrome-based validation. This is the tested workaround for [openai/codex#57641](https://github.com/openai/codex/issues/57641), where `cua_repl` reports `The browser access host is unavailable`. The skill lives under `$CODEX_HOME/skills` for discovery across projects; after merging it into the active home, verify discovery in a fresh session. It requires the app-managed Chrome plugin and `node_repl`, and does not modify their authorization checks or configuration.
+
 ## Local state
 
-The tracked `config.toml` includes this machine's integration paths and app-managed settings; it is not a portable template. Clients may modify it, so inspect config diffs before committing and reconcile paths when using another machine. Never commit credentials. Memories, sessions, credentials, databases, and plugin caches remain ignored. The [Git allowlist](.gitignore) includes personal guidance, the default config, setup instructions, and the `setup-codex` skill.
+The tracked `config.toml` includes this machine's integration paths and app-managed settings; it is not a portable template. Clients may modify it, so inspect config diffs before committing and reconcile paths when using another machine. Never commit credentials. Memories, sessions, credentials, databases, and plugin caches remain ignored. The [Git allowlist](.gitignore) includes personal guidance, the default config, setup instructions, and the `setup-codex` and `chrome-validation` skills.
 
 When migrating from an existing home, stop its clients and daemon and preserve a recoverable copy. Transfer runtime state without replacing this checkout's Git metadata or tracked guidance, and update shell, app, and configuration paths. Verify session resumption and required tools before removing the previous location.
