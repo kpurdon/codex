@@ -119,6 +119,12 @@ trust_level = "trusted"
 [projects."/Users/kyle.purdon/code/github.com/kpurdon/codex"]
 trust_level = "trusted"
 
+[projects."/Users/kyle.purdon/code/github.com/semgrep/semgrep-app"]
+trust_level = "trusted"
+
+[projects."/Users/kyle.purdon/.worktrees/semgrep-app/codex/sms-3747-explicit-links"]
+trust_level = "trusted"
+
 [desktop]
 open-link-in-target-preference = "external-browser"
 open-local-url-in-target-preference = "external-browser"
