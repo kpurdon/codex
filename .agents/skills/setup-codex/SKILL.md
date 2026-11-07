@@ -1,6 +1,6 @@
 ---
 name: setup-codex
-description: Set up or repair this personal Codex home by installing missing dependencies, configuring profile-aware launchers, and verifying readiness. Use for a request to set up this Codex environment; creating or reviewing this skill does not run setup.
+description: Set up or repair this personal Codex home by installing missing dependencies, configuring default-config launchers, and verifying readiness. Use for a request to set up this Codex environment; creating or reviewing this skill does not run setup.
 ---
 
 # Set up this Codex home
@@ -9,9 +9,9 @@ Carry a setup request through installation and verification. Follow the reposito
 
 ## Establish the target
 
-- Resolve the main `kpurdon/codex` checkout from the request and Git worktree metadata. Use that checkout as the target home; a review worktree is only a source for edits. Confirm its `AGENTS.md` and `personal.config.toml` exist before configuring launchers.
-- Inspect the effective `CODEX_HOME`, existing configuration, installed dependencies, and shell startup links. Preserve user settings, credentials, sessions, unrelated tools, and dirty work. Never print credentials or copy app-generated cache paths into tracked files.
-- Scope every Codex installation and inventory command to the target with `env CODEX_HOME="$target_home" codex ...`. Profile flags belong on supported runtime commands; do not pass `--profile` to plugin commands.
+- Resolve the main `kpurdon/codex` checkout from the request and Git worktree metadata. Use that checkout as the target home; a review worktree is only a source for edits. Confirm its `AGENTS.md` and `config.toml` exist before configuring launchers.
+- Inspect the effective `CODEX_HOME`, existing configuration, installed dependencies, and shell startup links. Preserve user settings, credentials, sessions, unrelated tools, and dirty work. Never print or commit credentials. Preserve existing app-managed configuration and review generated paths before committing config changes.
+- Scope every Codex installation and inventory command to the target with `env CODEX_HOME="$target_home" codex ...`. Use the default configuration without `--profile personal`.
 - If another home contains existing runtime state, prepare the target without changing the running session or activating new launchers. Report migration and restart as pending. Moving credentials/databases, stopping daemons, deleting the old home, or installing startup hooks needs an explicit migration or automation request; ordinary setup does not include those actions.
 
 ## Reconcile dependencies
@@ -32,13 +32,14 @@ Carry a setup request through installation and verification. Follow the reposito
 
 ## Configure launchers
 
-- Use the tracked `personal.config.toml` as an overlay on the target's local `config.toml`; preserve machine-specific integrations and app-managed fields. Select it with `codex --profile personal`. Do not replace the base config or use the obsolete `profile = "personal"` selector.
-- Locate the actual shell configuration and follow symlinks to their owner. Set `CODEX_HOME` to the resolved main checkout and make existing Codex launchers such as `sgc` pass `--profile personal`, preserving their working directory and argument forwarding. Avoid duplicate exports or wrappers on reruns.
+- Use the tracked `config.toml` as the default user configuration; preserve machine-specific integrations and app-managed fields. Reconcile existing settings before replacing an untracked config. Do not create a personal overlay or add a profile selector.
+- When migrating from `personal.config.toml`, preserve a recoverable copy of both files and reconcile any local profile changes into `config.toml` before retiring the profile. Remove launcher profile flags as part of the same activation; an obsolete local overlay can still override the default settings.
+- Locate the actual shell configuration and follow symlinks to their owner. Set `CODEX_HOME` to the resolved main checkout and remove `--profile personal` from existing Codex launchers such as `sgc`, preserving their working directory and argument forwarding. Avoid duplicate exports or wrappers on reruns.
 - For versioned dotfiles, prepare changes in an isolated worktree and deliver through the normal PR workflow; do not edit through live symlinks or merge on the user's behalf. For unversioned configuration, preserve a recoverable original and change only the relevant settings. Keep activation pending while an old-home migration or source change is outstanding.
 
 ## Verify and hand off
 
 - Verify dependency identity, installation, enablement, and any required account connection separately. Use a small relevant read for connected tools; an installed plugin alone does not establish working authentication.
-- Check shell syntax and launcher definitions without starting interactive sessions. Once changes are activated, verify the selected home and profile in a fresh launch, skill discovery, and Builder's installed setup/readiness skill. If this requires a user restart or unavailable client control, leave that check explicitly pending.
+- Check shell syntax and launcher definitions without starting interactive sessions. Once changes are activated, verify the selected home and default settings in a fresh launch without a profile flag, skill discovery, and Builder's installed setup/readiness skill. If this requires a user restart or unavailable client control, leave that check explicitly pending.
 - Run Builder's readiness checks from its installed package; they do not authorize launching iTerm sessions or deployment probes. Report those separately if requested.
-- Return a short account of what was already ready, what changed, and what remains blocked or unverified. Keep install/enablement, authentication, profile selection, and fresh-session readiness distinct. Do not claim the environment is ready while a required item remains pending.
+- Return a short account of what was already ready, what changed, and what remains blocked or unverified. Keep install/enablement, authentication, default configuration loading, and fresh-session readiness distinct. Do not claim the environment is ready while a required item remains pending.
