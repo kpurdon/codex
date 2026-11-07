@@ -26,7 +26,7 @@ When adopting this change in an existing home, back up the untracked `config.tom
 
 ## Dependencies
 
-The setup skill owns the [dependency inventory and verification](.agents/skills/setup-codex/SKILL.md#reconcile-dependencies): Builder, upstream gh-stack CLI, and its upstream skill. Add dependencies that setup must install there. The writing skill below is vendored in Git. Setup skips usable installations and reports sign-in or permission steps requiring your action. It runs on request, not on every startup.
+The setup skill owns the [dependency inventory and verification](.agents/skills/setup-codex/SKILL.md#reconcile-dependencies): Builder, upstream gh-stack CLI, and its upstream skill. Add dependencies that setup must install there. External skills managed by the Skills CLI are recorded in [skills-lock.json](skills-lock.json). Setup skips usable installations and reports sign-in or permission steps requiring your action. It runs on request, not on every startup.
 
 Setup finishes with Builder's readiness checks and fresh-session verification where available. Installed packages, authenticated connections, and live handoff or deployment behavior are separate checks.
 
@@ -34,14 +34,26 @@ Setup finishes with Builder's readiness checks and fresh-session verification wh
 
 The personal [Chrome validation skill](skills/chrome-validation/SKILL.md) uses the installed Chrome client's `setupBrowserRuntime()` through `node_repl` for Chrome-based validation. This is the tested workaround for [openai/codex#57641](https://github.com/openai/codex/issues/57641), where `cua_repl` reports `The browser access host is unavailable`. The skill lives under `$CODEX_HOME/skills` for discovery across projects; after merging it into the active home, verify discovery in a fresh session. It requires the app-managed Chrome plugin and `node_repl`, and does not modify their authorization checks or configuration.
 
-## Writing style
+## External skills
 
-The [writing skill](skills/writing-clearly-and-concisely/SKILL.md) and its reference are tracked under `skills/`, so cloning this repository carries them to the new Codex home. No separate installation is needed. Keep this as the only installed copy; `npx skills` does not manage its updates.
+[skills-lock.json](skills-lock.json) records the source revision and content hash for external skills, starting with `writing-clearly-and-concisely` from `obra/the-elements-of-style`. Git tracks the lockfile; downloaded files and local discovery links stay ignored.
 
-Both files are unchanged from [obra/the-elements-of-style at `05fc4f0`](https://github.com/obra/the-elements-of-style/tree/05fc4f0d2b97b7c042dd9949ad658568e4a1324e/skills/writing-clearly-and-concisely). Upstream identifies the 1918 Strunk text as public domain. To update, review and copy both files from a chosen upstream revision, then update this source link in the same PR.
+From the main Codex home, restore with the pinned Skills CLI:
+
+```sh
+npx --yes skills@1.7.6 experimental_install --frozen-lockfile
+```
+
+The CLI restores into `.agents/skills/`. Setup creates a relative link for each locked skill under `skills/`, making it available across projects through this Codex home. For the writing skill, when the destination is absent:
+
+```sh
+ln -s ../.agents/skills/writing-clearly-and-concisely skills/writing-clearly-and-concisely
+```
+
+To add or update a dependency, run `npx --yes skills@1.7.6 add` with an explicit GitHub `/tree/<commit>/<skill-path>` URL, `--agent codex`, and `--yes`. Review the generated lockfile's `ref` and hash, then commit it. Restore is experimental; keep the CLI version pinned and verify a clean restore when changing dependencies or the CLI version.
 
 ## Local state
 
-The tracked `config.toml` includes this machine's integration paths and app-managed settings; it is not a portable template. Clients may modify it, so inspect config diffs before committing and reconcile paths when using another machine. Never commit credentials. Memories, sessions, credentials, databases, and plugin caches remain ignored. The [Git allowlist](.gitignore) includes personal guidance, the default config, setup instructions, and the `setup-codex`, `chrome-validation`, and `writing-clearly-and-concisely` skills.
+The tracked `config.toml` includes this machine's integration paths and app-managed settings; it is not a portable template. Clients may modify it, so inspect config diffs before committing and reconcile paths when using another machine. Never commit credentials. Memories, sessions, credentials, databases, and plugin caches remain ignored. The [Git allowlist](.gitignore) includes personal guidance, the default config, setup instructions, and the `setup-codex` and `chrome-validation` skills, and the external skill lockfile.
 
 When migrating from an existing home, stop its clients and daemon and preserve a recoverable copy. Transfer runtime state without replacing this checkout's Git metadata or tracked guidance, and update shell, app, and configuration paths. Verify session resumption and required tools before removing the previous location.

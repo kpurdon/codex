@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "writing-clearly-and-concisely": {
+      "source": "obra/the-elements-of-style",
+      "ref": "05fc4f0d2b97b7c042dd9949ad658568e4a1324e",
+      "sourceType": "github",
+      "skillPath": "skills/writing-clearly-and-concisely/SKILL.md",
+      "computedHash": "c702d9db967bc320da26630c1bb2b6794ec7d058bc535818f72e2d3301c2448a"
+    }
+  }
+}
