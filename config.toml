@@ -58,7 +58,7 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
 BROWSER_USE_CODEX_APP_VERSION = "26.1103.32239"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/kyle.purdon/code/github.com/kpurdon/codex/plugins/cache/openai-bundled/browser/26.1103.32239/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+NODE_REPL_TRUSTED_SERVICES = "{\"browser\":\"/Users/kyle.purdon/code/github.com/kpurdon/codex/plugins/cache/openai-bundled/browser/26.1103.32239/scripts/browser-service.mjs\",\"sky\":\"@oai/sky/service\"}"
 SKY_CUA_SERVICE_PATH = "/Users/kyle.purdon/code/github.com/kpurdon/codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex"
 
@@ -73,3 +73,48 @@ status_line = ["model-with-reasoning", "project-name", "git-branch", "pull-reque
 show_tooltips = false
 terminal_title = ["thread", "project"]
 screen_reader_detection_done = true
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:58f9eae404df1b4a40f7d5bc48b821e0abbb535567b5f1ed63582afabb45b713"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:494fe36ec8347b7d0a4648718025199f3e5ecea86a0542a5df986bfff0e86b39"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:97fcc1244db51b5e83436d8ae0eaae9e2a88f903722d69ee07676d9a2599e913"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:session_start:0:1"]
+trusted_hash = "sha256:83c5bcd925f079fabead9b2a5ada13fcef91068ff65844dfbec10595045e3aad"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:session_start:0:2"]
+trusted_hash = "sha256:f3170efad6ef99c75bcefa2399ac4b356082cd7a84ceb312c1dbf31ecf1887da"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:session_end:0:0"]
+trusted_hash = "sha256:5f2ece8f7187f55ffe90ae9e4a6f5716ff573864dfc273efb2f3f2e4ed909b7a"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:stop:0:0"]
+trusted_hash = "sha256:23eccf4721f5a2db75226509ca26ebb20ee991afbce7fc7b7ac7d938a07f7792"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:stop:0:1"]
+trusted_hash = "sha256:160c9d286cafbc1c8406ca0572cd6e4c3725c8cbc29e947d80b67fd64aa71433"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[hooks.state."semgrep@workspace-directory:hooks/hooks.json:stop:0:2"]
+trusted_hash = "sha256:a0f8f2fb632aba116dd0b529607a611be4e1db7ad79593aa70e90917884d8b9b"
+trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
+
+[projects."/Users/kyle.purdon/code/github.com/semgrep/builder"]
+trust_level = "trusted"
+
+[projects."/Users/kyle.purdon/code/github.com/kpurdon/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/kyle.purdon/code/github.com/kpurdon/codex"]
+trust_level = "trusted"
