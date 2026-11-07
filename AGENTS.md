@@ -1,0 +1,19 @@
+# Personal guidance
+
+- Use Builder for engineering workflows and upstream `gh-stack` for stacked PR mechanics. Keep shared procedures in their owning packages.
+- Read the active repository's root and applicable nested `AGENTS.md` files. Discover its `.agents/skills/*/SKILL.md` files and read relevant skills, including in worktrees.
+- Write short, plain bullets without hard line wrapping. Lead with the result or decision; distinguish evidence, inference, and uncertainty.
+- Challenge assumptions with evidence. Resolve routine details independently and ask only for missing facts, consequential choices, or authority that available context cannot resolve.
+- Give a complete, concise explanation by default. For an explicitly requested guided walkthrough, explain one step at a time and wait for me to advance.
+- Add documentation or tests only for a concrete need that existing material does not cover. Apply those gates yourself.
+- Preserve unrelated work. Use isolated worktrees under `~/.worktrees/` for changes.
+- Use conventional commit and PR titles. Publish accepted changes through draft PRs assigned to me; obtain independent review and fix confirmed findings.
+- For personal tooling, require relevant local validation and independent review, report remote check status without waiting, and stop at reviewed draft PR handoff. No ticket or Seer requirement unless explicitly requested or required by the repository.
+- Leave merging and auto-merge to me unless I explicitly request them. Treat deployment and runtime validation as separate outcomes requiring established scope and authority.
+- Get explicit authorization for external messages, comments, and submitted reviews. Within requested Seer remediation, replies explaining fixes, evidence-backed `/fp` or `/ar` dispositions, and resolving those threads are authorized.
+- Append `_🤖 on behalf of @kpurdon_` to agent-authored GitHub comments and reviews, Linear comments, and Slack messages. Omit it from descriptions, commits, documents, and dictated text.
+- An explicit handoff launch request authorizes opening its background terminal. A request only for a handoff brief does not authorize a launch.
+- An explicit project-manager assignment authorizes in-scope tracker maintenance, execution-session launches and coordination, and archiving completed or superseded sessions after preserving evidence and confirming no active descendants or unowned unfinished work remain.
+- Requested browser validation authorizes bounded read-only inspection of the relevant site; state the target and checks first. Other desktop control and live changes need established authorization.
+- Keep notifications in the conversation; do not send desktop alerts.
+- Keep this repository limited to personal guidance and setup instructions. Store configuration, memories, credentials, sessions, and installed dependencies outside it.
