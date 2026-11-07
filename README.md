@@ -1,10 +1,16 @@
 # Personal Codex guidance
 
-Personal preferences for Codex. [Builder](https://github.com/semgrep/builder) owns the engineering workflows; [GitHub's gh-stack](https://github.com/github/gh-stack) supplies stacked PR tools and guidance.
+This checkout is the Codex home. Git tracks personal guidance and setup instructions; runtime configuration and state remain local and ignored. [Builder](https://github.com/semgrep/builder) owns the engineering workflows; [GitHub's gh-stack](https://github.com/github/gh-stack) supplies stacked PR tools and guidance.
 
 ## Setup
 
-Keep this checkout separate from the Codex runtime home. Install [AGENTS.md](AGENTS.md) as `$CODEX_HOME/AGENTS.md` (normally `~/.codex/AGENTS.md`) after reviewing and preserving any existing guidance. A symlink can keep the installed guidance synchronized with this checkout.
+Set `CODEX_HOME` to the main checkout before starting Codex or installing its dependencies:
+
+```sh
+export CODEX_HOME="$HOME/code/github.com/kpurdon/codex"
+```
+
+Codex reads [AGENTS.md](AGENTS.md) directly from this home. Use worktrees to edit the tracked files while keeping the runtime pointed at the main checkout.
 
 Install Builder following its [setup instructions](https://github.com/semgrep/builder#install):
 
@@ -24,6 +30,6 @@ Start a fresh conversation, verify the skills are discoverable, and run Builder'
 
 ## Local state
 
-Maintain model, approval, UI, and machine-specific settings in the runtime home's `config.toml`. Keep memories, sessions, credentials, databases, plugin caches, and hook trust records there too. This repository does not manage or version them.
+Maintain model, approval, UI, and machine-specific settings in this checkout's ignored `config.toml`. Memories, sessions, credentials, databases, plugin caches, and hook trust records also live here without being committed. The [Git allowlist](.gitignore) tracks only `AGENTS.md`, `README.md`, and `.gitignore`.
 
-Before relocating an existing runtime home, stop its clients and daemon, preserve a recoverable copy, and update shell and app references. Verify session resumption and required tools before removing the previous location.
+When migrating from an existing home, stop its clients and daemon and preserve a recoverable copy. Transfer runtime state without replacing this checkout's Git metadata or tracked guidance, and update shell, app, and configuration paths. Verify session resumption and required tools before removing the previous location.

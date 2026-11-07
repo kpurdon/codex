@@ -1,3 +1,4 @@
+# This checkout is CODEX_HOME; runtime configuration and state stay untracked.
 /*
 !/.gitignore
 !/AGENTS.md
