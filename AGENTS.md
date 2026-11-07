@@ -18,3 +18,8 @@
 - Requested browser validation authorizes bounded read-only inspection of the relevant site; state the target and checks first. Other desktop control and live changes need established authorization.
 - Keep notifications in the conversation; do not send desktop alerts.
 - This checkout is `CODEX_HOME`. Track personal guidance, the default `config.toml`, and personal skills; keep memories, credentials, sessions, and installed dependencies local and ignored by Git. Review config diffs before committing because clients can write machine paths and runtime settings into it.
+
+## Semgrep work
+
+- For Semgrep PRs whose finish line includes merge readiness, require Seer approval of the latest head. Read findings and replies across revisions; a green check alone is not Seer approval.
+- Deliver Semgrep Datadog resource changes through `semgrep-app-terraform`, except unmanaged notebooks and dashboards. Other direct changes require an explicit user Terraform override; ordinary live-change approval is insufficient.

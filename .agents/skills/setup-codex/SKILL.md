@@ -22,12 +22,13 @@ Carry a setup request through installation and verification. Follow the reposito
 
 | Dependency | Source and installation | Verification |
 | --- | --- | --- |
-| Builder | Register `semgrep/builder` with `codex plugin marketplace add semgrep/builder`; install `codex plugin add builder@semgrep-builder` only when missing. | Inspect the marketplace source and `codex plugin list --marketplace semgrep-builder --json`; require the exact installed plugin with `enabled: true`. |
+| Builder | Register `kpurdon/builder` with `codex plugin marketplace add kpurdon/builder`; install `codex plugin add builder@kpurdon-builder` only when missing. | Inspect the marketplace source and `codex plugin list --marketplace kpurdon-builder --json`; require the exact installed plugin with `enabled: true`. |
 | gh-stack CLI | Authenticated GitHub CLI; `gh extension install github/gh-stack` when absent. | Check extension provenance and `gh stack --help`. |
 | gh-stack skill | Install directly from `github/gh-stack`, using `gh skill install` with a supported Codex user target or the available Codex skill-installer for upstream `skills/gh-stack`. Inspect installer help first. | Confirm the skill comes from upstream and is discoverable for the target home, not only the current working directory. |
 | Locked external skills | From `$target_home`, run `npx --yes skills@1.7.6 experimental_install --frozen-lockfile` using the tracked `skills-lock.json`. Node/npm come from the machine's package manager. | Require restore success and an unchanged lockfile; verify the discovery links below. |
 
-- If a marketplace name or installed item resolves to another source, preserve it and resolve the conflict before installation. Recheck the resulting state after every install; command success alone is insufficient.
+- When migrating Builder from `semgrep/builder`, install and verify `builder@kpurdon-builder` first. Then remove `builder@semgrep-builder` with `codex plugin remove` and retire the `semgrep-builder` marketplace with `codex plugin marketplace remove`. Verify the old plugin is absent so both copies do not remain active. Keep activation pending if the new source is not ready.
+- For other source conflicts, preserve the installed item and resolve the conflict before installation. Recheck the resulting state after every install; command success alone is insufficient.
 - For additional selected plugins, resolve their exact source and identifier using the available plugin-management tools or native marketplace commands. Install through that supported path and follow its authentication flow. Keep app-bundled and workspace-managed plugins under their owning client/account; do not recreate them from local cache directories or broaden workspace permissions.
 - When an installation result is uncertain, read state before retrying. Report unresolved failures with the dependency, observed error, and next action; do not loop or silently substitute another tool.
 

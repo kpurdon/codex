@@ -7,15 +7,15 @@ approvals_reviewer = "auto_review"
 
 notify = ["/Users/kyle.purdon/code/github.com/kpurdon/codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
-[marketplaces.semgrep-builder]
+[marketplaces.kpurdon-builder]
 source_type = "git"
-source = "git@github.com:semgrep/builder.git"
+source = "git@github.com:kpurdon/builder.git"
 
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/Users/kyle.purdon/code/github.com/kpurdon/codex/.tmp/bundled-marketplaces/openai-bundled"
 
-[plugins."builder@semgrep-builder"]
+[plugins."builder@kpurdon-builder"]
 enabled = true
 
 [plugins."codex-app-tools@openai-bundled"]
