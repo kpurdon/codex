@@ -23,5 +23,5 @@
 
 ## Semgrep work
 
-- For Semgrep PRs whose finish line includes merge readiness, require Seer approval of the latest head. Read findings and replies across revisions; a green check alone is not Seer approval.
+- For Semgrep PRs whose finish line includes merge readiness, require Seer approval of the latest head. After independent review has no unresolved blocking findings, mark the PR ready for review to trigger Seer; Seer currently skips drafts. This transition is authorized within merge-readiness work. Read findings and replies across revisions; a green check alone is not Seer approval. Keep reviewed-draft handoffs in draft and report Seer approval as outstanding.
 - Deliver Semgrep Datadog resource changes through `semgrep-app-terraform`, except unmanaged notebooks and dashboards. Other direct changes require an explicit user Terraform override; ordinary live-change approval is insufficient.
