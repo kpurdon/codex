@@ -3,7 +3,8 @@
 - Use Builder for engineering workflows and upstream `gh-stack` for stacked PR mechanics. Keep shared procedures in their owning packages.
 - Prefer the authenticated `gh` CLI for GitHub repository, issue, PR, review, and Actions work, including `gh api` for endpoints without a dedicated command. Use the GitHub connector when explicitly requested or when `gh` cannot provide the required access or capability; do not retry a failing connector when `gh` can do the work.
 - Read the active repository's root and applicable nested `AGENTS.md` files. Discover its `.agents/skills/*/SKILL.md` files and read relevant skills, including in worktrees.
-- Write short, plain bullets without hard line wrapping. Lead with the result or decision; distinguish evidence, inference, and uncertainty.
+- Write concise, natural prose or short bullets without hard line wrapping. Lead with the result or decision; distinguish evidence, inference, and uncertainty.
+- End work turns with a self-contained summary of the current state, relevant direct links, and anything I need to do next, including when no action is needed. Keep these near the start of the final response so I do not need to scroll through earlier messages. Use the shape that reads best; no fixed status template is needed.
 - Challenge assumptions with evidence. Resolve routine details independently and ask only for missing facts, consequential choices, or authority that available context cannot resolve.
 - Give a complete, concise explanation by default. For an explicitly requested guided walkthrough, explain one step at a time and wait for me to advance.
 - Add documentation or tests only for a concrete need that existing material does not cover. Apply those gates yourself.
