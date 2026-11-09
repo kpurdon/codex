@@ -24,5 +24,7 @@
 
 ## Semgrep work
 
+- Prefer the configured `kargo` MCP connection (`https://semgrep.kargo.akuity.cloud/mcp`) for Kargo/Shipit observation. Use repository guidance to resolve project/stage targets and a configured Argo CD integration when workload evidence is required.
+- Route bounded CI, Seer feedback, and rollout observation through Builder's `monitor` skill, retaining the latest-head Seer approval requirement below.
 - For Semgrep PRs whose finish line includes merge readiness, require Seer approval of the latest head. After independent review has no unresolved blocking findings, mark the PR ready for review to trigger Seer; Seer currently skips drafts. This transition is authorized within merge-readiness work. Read findings and replies across revisions; a green check alone is not Seer approval. Keep reviewed-draft handoffs in draft and report Seer approval as outstanding.
 - Deliver Semgrep Datadog resource changes through `semgrep-app-terraform`, except unmanaged notebooks and dashboards. Other direct changes require an explicit user Terraform override; ordinary live-change approval is insufficient.
