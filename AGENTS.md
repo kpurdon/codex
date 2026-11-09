@@ -8,7 +8,7 @@
 - Give a complete, concise explanation by default. For an explicitly requested guided walkthrough, explain one step at a time and wait for me to advance.
 - Add documentation or tests only for a concrete need that existing material does not cover. Apply those gates yourself.
 - Preserve unrelated work. Use isolated worktrees under `~/.worktrees/` for changes.
-- Use conventional commit and PR titles. Publish accepted changes through draft PRs assigned to me; obtain independent review and fix confirmed findings.
+- Use conventional commit and PR titles. Publish accepted changes through draft PRs assigned to me; obtain independent review and fix confirmed findings before handoff. You may launch a reviewer subagent for that review without asking for additional confirmation.
 - For personal tooling, require relevant local validation and independent review, report remote check status without waiting, and stop at reviewed draft PR handoff. No ticket or Seer requirement unless explicitly requested or required by the repository.
 - Leave merging and auto-merge to me unless I explicitly request them. Treat deployment and runtime validation as separate outcomes requiring established scope and authority.
 - Get explicit authorization for external messages, comments, and submitted reviews. Within requested Seer remediation, replies explaining fixes, evidence-backed `/fp` or `/ar` dispositions, and resolving those threads are authorized.
