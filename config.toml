@@ -19,10 +19,6 @@ source = "git@github.com:kpurdon/iterm2.git"
 source_type = "local"
 source = "/Users/kyle.purdon/code/github.com/kpurdon/codex/.tmp/bundled-marketplaces/openai-bundled"
 
-[marketplaces.akuity]
-source_type = "git"
-source = "https://github.com/akuity/agent-plugins.git"
-
 [plugins."builder@kpurdon-builder"]
 enabled = true
 
@@ -45,9 +41,6 @@ enabled = true
 enabled = true
 
 [plugins."visualize@openai-bundled"]
-enabled = true
-
-[plugins."akuity@akuity"]
 enabled = true
 
 [features]
