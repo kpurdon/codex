@@ -24,6 +24,16 @@ Codex [loads the user config by default](https://learn.chatgpt.com/docs/config-f
 
 When adopting this change in an existing home, back up the untracked `config.toml` and any locally modified `personal.config.toml` before updating the checkout. Reconcile their current settings into the tracked config, remove `--profile personal` from launchers, and retire the old profile only after preserving its local changes. The companion dotfiles change removes that flag from `sgc`. Verify the effective defaults in a fresh session after activation.
 
+## Automatic task titles
+
+The [task-title helper](bin/codex-task-title), restored from [semgrep/kp](https://github.com/semgrep/kp/commit/a83cd484c529c14e012e653f2a5db36bb8ed98a0), runs after each user prompt and completed assistant turn. It produces `ISSUE-123 - PR #456 - Short description`, omitting missing identifiers. It adds the primary PR when the conversation identifies it and updates the description when the task changes or its purpose becomes clearer. Routine progress keeps the label stable. A manual rename after automatic naming stops further updates for that thread.
+
+The two background hooks in [config.toml](config.toml) run the tracked helper directly from `$CODEX_HOME/bin`; no separate installed copy is needed. They require `uv`, authenticated `codex`, and the shared local Codex daemon. The helper uses GPT-6-Luna with tools and its own hooks disabled, skips subagents and ephemeral threads, and keeps per-thread state under the ignored `$CODEX_HOME/cache/task-titles/`. Standalone `--no-daemon` sessions are unsupported. Failures appear in hook stderr without blocking work.
+
+After merging and updating the active Codex home, open `/hooks` to review and trust both hooks, then verify a title after a prompt and completed turn. Resume or restart the client if it has not loaded the new configuration. Existing issue-only titles can be enriched on the next hook invocation. Remove the two hook entries to disable automatic naming; saved titles remain. See [Codex hook trust](https://learn.chatgpt.com/docs/hooks#review-and-trust-hooks).
+
+Run the helper's regression tests with `python3 -m unittest discover -s bin -v`.
+
 ## Dependencies
 
 The setup skill owns the [dependency inventory and verification](.agents/skills/setup-codex/SKILL.md#reconcile-dependencies): Builder, iTerm2 tabs, upstream gh-stack CLI, and its upstream skill. Add dependencies that setup must install there. External skills managed by the Skills CLI are recorded in [skills-lock.json](skills-lock.json). Setup skips usable installations and reports sign-in or permission steps requiring your action. It runs on request, not on every startup.

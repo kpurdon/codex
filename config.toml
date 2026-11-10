@@ -90,6 +90,10 @@ show_tooltips = false
 terminal_title = ["thread", "project"]
 screen_reader_detection_done = true
 
+[hooks]
+UserPromptSubmit = [{ hooks = [{ type = "command", command = 'uv run --quiet --script "$CODEX_HOME/bin/codex-task-title"', async = true, timeout = 110 }] }]
+Stop = [{ hooks = [{ type = "command", command = 'uv run --quiet --script "$CODEX_HOME/bin/codex-task-title"', async = true, timeout = 110 }] }]
+
 [hooks.state."semgrep@workspace-directory:hooks/hooks.json:pre_tool_use:0:0"]
 trusted_hash = "sha256:58f9eae404df1b4a40f7d5bc48b821e0abbb535567b5f1ed63582afabb45b713"
 trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
