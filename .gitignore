@@ -13,3 +13,7 @@
 /skills/*
 !/skills/chrome-validation/
 !/skills-lock.json
+!/bin/
+/bin/*
+!/bin/codex-task-title
+!/bin/test_codex_task_title.py
