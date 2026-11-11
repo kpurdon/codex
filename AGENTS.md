@@ -9,6 +9,7 @@
 - Challenge assumptions with evidence. Resolve routine details independently and ask only for missing facts, consequential choices, or authority that available context cannot resolve.
 - Give a complete, concise explanation by default. For an explicitly requested guided walkthrough, explain one step at a time and wait for me to advance.
 - Add documentation or tests only for a concrete need that existing material does not cover. Apply those gates yourself.
+- Do not add task plans, migration inventories, rollout runbooks, acceptance reports, or session notes to tracked repository docs (including `semgrep-app/server/docs`) unless I explicitly request them or repository policy specifically requires them. Keep rationale and evidence with the PR or owning issue, and session bookkeeping in local state outside the repository.
 - Preserve unrelated work. Use isolated worktrees under `~/.worktrees/` for changes.
 - Use conventional commit and PR titles. Publish accepted changes initially as draft PRs assigned to me; draft creation is an intermediate step toward the required delivery outcome. Obtain independent review and fix confirmed findings before handoff. You may launch a reviewer subagent for that review without asking for additional confirmation.
 - For personal tooling, require relevant local validation and independent review, report remote check status without waiting, and stop at reviewed draft PR handoff. No ticket or Seer requirement unless explicitly requested or required by the repository.
