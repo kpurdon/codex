@@ -71,6 +71,12 @@ SKY_CUA_SERVICE_PATH = "/Users/kyle.purdon/code/github.com/kpurdon/codex/compute
 [mcp_servers.kargo]
 url = "https://semgrep.kargo.akuity.cloud/mcp"
 
+[mcp_servers.semgrep_dev3]
+url = "https://dev3.semgrep.dev/api/mcp"
+
+[mcp_servers.semgrep_staging]
+url = "https://staging.semgrep.dev/api/mcp"
+
 [agents]
 enabled = true
 default_subagent_model = "gpt-6.1-sol"
