@@ -33,8 +33,8 @@ def prompt(text):
     return {"hook_event_name": "UserPromptSubmit", "prompt": text}
 
 
-def answer(label="CI speedups", ticket=None, substantive=True, pr=None):
-    return lambda _: {"label": label, "ticket": ticket, "pr": pr, "substantive": substantive}
+def answer(label="CI speedups", ticket=None, substantive=True, pr=None, scope_changed=False):
+    return lambda _: {"label": label, "ticket": ticket, "pr": pr, "substantive": substantive, "scope_changed": scope_changed}
 
 
 class TaskTitleTests(unittest.TestCase):
@@ -54,8 +54,8 @@ class TaskTitleTests(unittest.TestCase):
                                       server, "one", generate)
                 self.assertEqual(state["pr"], "1234")
                 state = titles.update(state, prompt("Run the checks"), server, "one", generate)
-                expected = "PR #1234 - CI speedups"
-                self.assertEqual(server.thread["name"], f"{ticket} - {expected}" if ticket else expected)
+                expected = "PR #1234: CI speedups"
+                self.assertEqual(server.thread["name"], f"{ticket}: {expected}" if ticket else expected)
                 self.assertEqual(len(server.writes), 2)
 
     def test_pr_requires_evidence_and_examples_can_be_rejected(self):
@@ -79,7 +79,7 @@ class TaskTitleTests(unittest.TestCase):
                               answer())
         state = titles.update(state, {"hook_event_name": "Stop", "last_assistant_message": "Created SMS-4321 to track this CI work."},
                               server, "one", answer(ticket="SMS-4321"))
-        self.assertEqual(server.thread["name"], "SMS-4321 - CI speedups")
+        self.assertEqual(server.thread["name"], "SMS-4321: CI speedups")
         state = titles.update(state, prompt("Also see SMS-5555"), server, "one",
                               answer(ticket="SMS-4321"))
         self.assertEqual(len(server.writes), 2)
@@ -96,11 +96,11 @@ class TaskTitleTests(unittest.TestCase):
             self.assertEqual(context["candidate_prs"], ["1234", "5555"])
             self.assertIn("Jobs migration", context["recent_messages"])
             self.assertEqual(context["candidate_tickets"], ["SMS-4321", "SMS-5555"])
-            return answer("Jobs migration", "SMS-5555", pr="5555")(context)
+            return answer("Jobs migration", "SMS-5555", pr="5555", scope_changed=True)(context)
 
         state = titles.update(state, prompt("continue"), server, "one", generate)
-        self.assertEqual(server.thread["name"], "SMS-5555 - PR #5555 - Jobs migration")
-        state = titles.update(state, prompt("Switch to improving local task titles; no ticket"), server, "one", answer("Task titles"))
+        self.assertEqual(server.thread["name"], "SMS-5555: PR #5555: Jobs migration")
+        state = titles.update(state, prompt("Switch to improving local task titles; no ticket"), server, "one", answer("Task titles", scope_changed=True))
         self.assertEqual(server.thread["name"], "Task titles")
         self.assertIsNone(state["ticket"])
         self.assertIsNone(state["pr"])
@@ -112,11 +112,11 @@ class TaskTitleTests(unittest.TestCase):
         state = titles.update(state, prompt("continue"), server, "one",
                               lambda _: self.fail("identical context"))
         server.recent_messages = lambda _: "Instead investigate Jobs"
-        titles.update(state, prompt("continue"), server, "one", answer("Jobs investigation"))
+        titles.update(state, prompt("continue"), server, "one", answer("Jobs investigation", scope_changed=True))
         self.assertEqual(server.thread["name"], "Jobs investigation")
         self.assertEqual(len(server.writes), 2)
 
-    def test_diagnosis_can_clarify_title_without_new_prompt_or_ticket(self):
+    def test_diagnosis_does_not_change_established_context(self):
         server = Server()
         state = titles.update({}, prompt("Investigate slow CI"), server, "one", answer("Investigate CI"))
 
@@ -127,7 +127,47 @@ class TaskTitleTests(unittest.TestCase):
 
         titles.update(state, {"hook_event_name": "Stop", "last_assistant_message": "The cache key changes on every run; fixing that will address the slowdown."},
                       server, "one", generate)
-        self.assertEqual(server.thread["name"], "Fix CI cache misses")
+        self.assertEqual(server.thread["name"], "Investigate CI")
+        self.assertEqual(len(server.writes), 1)
+
+    def test_enrichment_preserves_context_and_previously_known_identifiers(self):
+        for ticket, pr in ((None, None), ("SMS-4321", None), (None, "1234")):
+            with self.subTest(ticket=ticket, pr=pr):
+                server = Server()
+                state = titles.update({}, prompt("Fix slow CI"), server, "one", answer())
+                if ticket or pr:
+                    state = titles.update(state, prompt("Tracked as SMS-4321 in PR #1234"),
+                                          server, "one", answer(ticket=ticket, pr=pr))
+                # A new ID is useful even when the model proposes wording drift
+                # and forgets an identifier we already know.
+                state = titles.update(state, {"hook_event_name": "Stop", "last_assistant_message": "CI cache fix is tracked as SMS-4321 in PR #1234"},
+                                      server, "one", answer("Fix CI cache misses",
+                                                           ticket=None if ticket else "SMS-4321",
+                                                           pr=None if pr else "1234"))
+                self.assertEqual(server.thread["name"], "SMS-4321: PR #1234: CI speedups")
+                self.assertEqual((state["label"], state["ticket"], state["pr"]),
+                                 ("CI speedups", "SMS-4321", "1234"))
+
+    def test_complete_title_resists_omissions_replacements_and_wording_drift(self):
+        server = Server()
+        state = titles.update({}, prompt("Fix CI for SMS-4321 in PR #1234"), server, "one",
+                              answer(ticket="SMS-4321", pr="1234"))
+        for ticket, pr in ((None, None), ("SMS-5555", "5678")):
+            with self.subTest(ticket=ticket, pr=pr):
+                state = titles.update(state, prompt("Run tests; SMS-5555 in PR #5678 is a dependency"),
+                                      server, "one", answer("Check CI results", ticket=ticket, pr=pr))
+                self.assertEqual(server.thread["name"], "SMS-4321: PR #1234: CI speedups")
+                self.assertEqual((state["ticket"], state["pr"]), ("SMS-4321", "1234"))
+        self.assertEqual(len(server.writes), 1)
+
+    def test_legacy_title_adopts_colons_without_changing_context(self):
+        name = "SMS-4321 - PR #1234 - CI speedups"
+        server = Server(name)
+        state = {"task": "Fix slow CI", "label": "CI speedups", "ticket": "SMS-4321",
+                 "pr": "1234", "applied_name": name}
+        state = titles.update(state, prompt("continue"), server, "one", answer("Fix CI cache misses"))
+        self.assertEqual(server.thread["name"], "SMS-4321: PR #1234: CI speedups")
+        self.assertFalse(state.get("manual"))
 
     def test_guidance_is_removed_and_non_task_is_deferred(self):
         text = '# AGENTS.md instructions for /repo\n<INSTRUCTIONS>Read repository guidance</INSTRUCTIONS><environment_context>cwd=/repo</environment_context>'
@@ -135,7 +175,7 @@ class TaskTitleTests(unittest.TestCase):
         state = titles.update({}, prompt(text), server, "one", lambda _: self.fail("only guidance"))
         state = titles.update(state, prompt("hello"), server, "one", answer("", substantive=False))
         state = titles.update(state, prompt("Fix slow CI SMS-4321"), server, "one", answer(ticket="SMS-4321"))
-        self.assertEqual(server.thread["name"], "SMS-4321 - CI speedups")
+        self.assertEqual(server.thread["name"], "SMS-4321: CI speedups")
 
     def test_manual_rename_wins_including_during_generation(self):
         server = Server()
@@ -204,7 +244,7 @@ class TaskTitleTests(unittest.TestCase):
             return answer(ticket="SMS-4321")(context)
 
         titles.update({}, prompt("continue"), server, "one", generate)
-        self.assertEqual(server.thread["name"], "SMS-4321 - CI speedups")
+        self.assertEqual(server.thread["name"], "SMS-4321: CI speedups")
 
     def test_stop_can_finish_before_prompt_hook(self):
         server = Server()
@@ -212,7 +252,7 @@ class TaskTitleTests(unittest.TestCase):
         state = titles.update({}, {"hook_event_name": "Stop", "last_assistant_message": "Created SMS-4321 for CI work"},
                               server, "one", answer(ticket="SMS-4321"))
         titles.update(state, prompt("Speed up CI"), server, "one", answer(ticket="SMS-4321"))
-        self.assertEqual(server.writes, [("one", "SMS-4321 - CI speedups")])
+        self.assertEqual(server.writes, [("one", "SMS-4321: CI speedups")])
 
     def test_recent_messages_are_chronological_and_exclude_guidance_and_tool_output(self):
         rpc = object.__new__(titles.Rpc)
