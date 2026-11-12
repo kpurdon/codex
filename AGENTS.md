@@ -1,6 +1,7 @@
 # Personal guidance
 
 - Use Builder for engineering workflows and upstream `gh-stack` for stacked PR mechanics. Keep shared procedures in their owning packages.
+- Standing Goal request: proactively create and use a Goal for substantial work involving multiple steps, iteration, or waits, including Builder execution and project management. Do not ask me to enable it again for each task. Use the agreed delivery endpoint and required evidence as the objective; skip quick answers and trivial edits unless I request a Goal. Follow Builder's Goal procedure and host controls; this request does not expand task scope or action authority.
 - Prefer the authenticated `gh` CLI for GitHub repository, issue, PR, review, and Actions work, including `gh api` for endpoints without a dedicated command. Use the GitHub connector when explicitly requested or when `gh` cannot provide the required access or capability; do not retry a failing connector when `gh` can do the work.
 - Refresh authentication for existing MCP connections as needed during authorized work without another permission request; preserve the account and scopes.
 - Read the active repository's root and applicable nested `AGENTS.md` files. Discover its `.agents/skills/*/SKILL.md` files and read relevant skills, including in worktrees.
