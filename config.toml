@@ -1,4 +1,4 @@
-model = "gpt-6-astra"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "high"
 sandbox_mode = "danger-full-access"
 approval_policy = "on-request"
@@ -175,11 +175,14 @@ trust_level = "trusted"
 [projects."/Users/kyle.purdon/code/github.com/kpurdon/builder"]
 trust_level = "trusted"
 
+[projects."/Users/kyle.purdon/code/github.com/kpurdon/tidygit"]
+trust_level = "trusted"
+
 [desktop]
 open-link-in-target-preference = "external-browser"
 open-local-url-in-target-preference = "external-browser"
 "browser-family-enabled:chrome" = true
-conversationDetailMode = "STEPS_COMMANDS"
+conversationDetailMode = "STEPS_PROSE"
 
 [mcp_servers.kargo.oauth]
 client_id = "kargo-fpy6bnfeod5h2g80-cli"
