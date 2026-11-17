@@ -24,15 +24,9 @@ Codex [loads the user config by default](https://learn.chatgpt.com/docs/config-f
 
 When adopting this change in an existing home, back up the untracked `config.toml` and any locally modified `personal.config.toml` before updating the checkout. Reconcile their current settings into the tracked config, remove `--profile personal` from launchers, and retire the old profile only after preserving its local changes. The companion dotfiles change removes that flag from `sgc`. Verify the effective defaults in a fresh session after activation.
 
-## Automatic task titles
+## Session titles
 
-The [task-title helper](bin/codex-task-title), restored from [semgrep/kp](https://github.com/semgrep/kp/commit/a83cd484c529c14e012e653f2a5db36bb8ed98a0), runs after each user prompt and completed assistant turn. It builds toward `ISSUE-123: PR #456: Short description`, omitting unknown identifiers and filling them in as the conversation identifies the task's primary ticket and PR. Established context and identifiers change only when the work's scope materially changes. Diagnosis, clearer details, review fixes, and routine progress keep the title stable. A manual rename after automatic naming stops further updates for that thread.
-
-The two background hooks in [config.toml](config.toml) run the tracked helper directly from `$CODEX_HOME/bin`; no separate installed copy is needed. They require `uv`, authenticated `codex`, and the shared local Codex daemon. The helper uses GPT-6-Luna with tools and its own hooks disabled, skips subagents and ephemeral threads, and keeps per-thread state under the ignored `$CODEX_HOME/cache/task-titles/`. Standalone `--no-daemon` sessions are unsupported. Failures appear in hook stderr without blocking work.
-
-After merging and updating the active Codex home, open `/hooks` to review and trust both hooks, then verify a title after a prompt and completed turn. Resume or restart the client if it has not loaded the new configuration. Existing issue-only titles can be enriched on the next hook invocation. Remove the two hook entries to disable automatic naming; saved titles remain. See [Codex hook trust](https://learn.chatgpt.com/docs/hooks#review-and-trust-hooks).
-
-Run the helper's regression tests with `python3 -m unittest discover -s bin -v`.
+T3 owns title generation and title controls for its threads. Standalone Codex uses its built-in naming. Personal guidance prefers `ISSUE-123: PR #456: Short description` when setting a title, omitting unknown identifiers and preserving established context unless the work's scope materially changes.
 
 ## Dependencies
 
@@ -40,11 +34,11 @@ The setup skill owns the [dependency inventory and verification](.agents/skills/
 
 Setup finishes with Builder's readiness checks and fresh-session verification where available. Installed packages, authenticated connections, and live handoff or deployment behavior are separate checks.
 
-Broad PM/discovery sessions normally start at the Semgrep parent workspace. Once affected repositories are known, independent implementation sessions can start in their isolated worktrees. dispatcher records initiative membership separately from launch directories and UI groups, using the ignored `$CODEX_HOME/dispatcher/registry.sqlite3`. Builder's local project record references that inventory rather than duplicating it. Existing sessions remain unmanaged until explicitly adopted or transferred. T3-native handoffs, connected tools, and its separate title metadata need runtime validation before relying on them for delivery.
+Broad PM/discovery sessions normally start at the Semgrep parent workspace. Once affected repositories are known, independent implementation sessions can start in their isolated worktrees. dispatcher records initiative membership separately from launch directories and UI groups, using the ignored `$CODEX_HOME/dispatcher/registry.sqlite3`. Builder's local project record references that inventory rather than duplicating it. Existing sessions remain unmanaged until explicitly adopted or transferred. New initiatives follow an explicit interface choice, then verified origin, with T3 as the fallback when origin is unknown. Existing initiatives retain their recorded backend. Launches, connected tools, and native title behavior need runtime evidence before claiming readiness.
 
 ## Chrome validation
 
-The personal [Chrome validation skill](skills/chrome-validation/SKILL.md) uses the installed Chrome client's `setupBrowserRuntime()` through `node_repl` for Chrome-based validation. This is the tested workaround for [openai/codex#57641](https://github.com/openai/codex/issues/57641), where `cua_repl` reports `The browser access host is unavailable`. The skill lives under `$CODEX_HOME/skills` for discovery across projects; after merging it into the active home, verify discovery in a fresh session. It requires the app-managed Chrome plugin and `node_repl`, and does not modify their authorization checks or configuration.
+Ordinary browser validation in T3 uses its native preview and fallback rules. The personal [Chrome validation skill](skills/chrome-validation/SKILL.md) covers explicit native Chrome/profile/tab/group requests and host-approved Chrome fallbacks. It uses the installed Chrome client's `setupBrowserRuntime()` through `node_repl`, including the workaround for [openai/codex#57641](https://github.com/openai/codex/issues/57641). The skill lives under `$CODEX_HOME/skills` for discovery across projects; after merging it into the active home, verify discovery in a fresh session. It requires the app-managed Chrome plugin and `node_repl`, and does not modify their authorization checks or configuration.
 
 ## External skills
 
