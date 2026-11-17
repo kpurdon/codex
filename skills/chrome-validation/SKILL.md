@@ -1,13 +1,15 @@
 ---
 name: chrome-validation
-description: Validate websites and tab groups in the user's native Google Chrome through the installed Chrome client in node_repl. Use for Chrome-based browser validation, including when cua_repl reports that the browser access host is unavailable.
+description: Validate explicitly requested native Google Chrome pages, profiles, tabs, or groups through the installed Chrome client in node_repl. Use a host-approved Chrome fallback when needed; ordinary browser validation in T3 follows its native preview rules.
 ---
 
 # Chrome validation
 
-Use the installed Chrome client's `setupBrowserRuntime()` in `node_repl` for Chrome validation. This personal workaround addresses the `cua_repl` initialization failure `The browser access host is unavailable`, tracked in [openai/codex#57641](https://github.com/openai/codex/issues/57641). The [reported alternate initialization](https://github.com/openai/codex/issues/57641#issuecomment-6701344387) worked locally on 2026-11-07 for navigation, page reads, tab-group membership, collapse/expand, and cleanup. It does not repair `cua_repl`.
+Use this skill for explicit native Chrome, profile, tab, or group requests, or when the host permits a Chrome fallback. Ordinary browser validation in T3 follows its native preview and fallback rules; a historical Codex browser failure does not select Chrome there.
 
-Use this route directly while the workaround is needed; do not repeat the known failing bootstrap on every validation request. When reassessing it after an app/plugin update or a confirmed upstream fix, retest the normal route before retiring this skill. An issue being closed alone is not local acceptance evidence.
+For native Chrome, use the installed client's `setupBrowserRuntime()` in `node_repl`. This personal workaround addresses the `cua_repl` initialization failure `The browser access host is unavailable`, tracked in [openai/codex#57641](https://github.com/openai/codex/issues/57641). The [reported alternate initialization](https://github.com/openai/codex/issues/57641#issuecomment-6701344387) worked locally on 2026-11-07 for navigation, page reads, tab-group membership, collapse/expand, and cleanup. It does not repair `cua_repl`.
+
+Once native Chrome is selected, use this route directly while the workaround is needed; do not repeat the known failing bootstrap on every Chrome validation request. When reassessing it after an app/plugin update or a confirmed upstream fix, retest the normal route before retiring this skill. An issue being closed alone is not local acceptance evidence.
 
 ## Connect
 

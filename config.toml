@@ -116,10 +116,6 @@ show_tooltips = false
 terminal_title = ["thread", "project"]
 screen_reader_detection_done = true
 
-[hooks]
-UserPromptSubmit = [{ hooks = [{ type = "command", command = 'uv run --quiet --script "$CODEX_HOME/bin/codex-task-title"', async = true, timeout = 110 }] }]
-Stop = [{ hooks = [{ type = "command", command = 'uv run --quiet --script "$CODEX_HOME/bin/codex-task-title"', async = true, timeout = 110 }] }]
-
 [hooks.state]
 
 [hooks.state."semgrep@workspace-directory:hooks/hooks.json:pre_tool_use:0:0"]
@@ -157,12 +153,6 @@ trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818
 [hooks.state."semgrep@workspace-directory:hooks/hooks.json:stop:0:2"]
 trusted_hash = "sha256:a0f8f2fb632aba116dd0b529607a611be4e1db7ad79593aa70e90917884d8b9b"
 trusted_content_hash = "sha256:0745e4ca09e6e476719b6eb2e434b0c67098272370fa5a818372ff383c730dd8"
-
-[hooks.state."/Users/kyle.purdon/code/github.com/kpurdon/codex/config.toml:user_prompt_submit:0:0"]
-trusted_hash = "sha256:fe622942ab64cc63889c878c416a928f208d91cf9ff9c41396b4689284e99860"
-
-[hooks.state."/Users/kyle.purdon/code/github.com/kpurdon/codex/config.toml:stop:0:0"]
-trusted_hash = "sha256:ee4a5b0bb387da3b138c126b3d50f610d5435316bfae77ebfa1c3c593be1a3de"
 
 [projects."/Users/kyle.purdon/code/github.com/semgrep/builder"]
 trust_level = "trusted"
