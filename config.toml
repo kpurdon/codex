@@ -11,10 +11,6 @@ service_tier = "default"
 source_type = "git"
 source = "git@github.com:kpurdon/builder.git"
 
-[marketplaces.kpurdon-iterm2]
-source_type = "git"
-source = "git@github.com:kpurdon/iterm2.git"
-
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/Users/kyle.purdon/code/github.com/kpurdon/codex/.tmp/bundled-marketplaces/openai-bundled"
@@ -29,9 +25,6 @@ source = "https://github.com/kpurdon/dispatcher.git"
 
 [plugins."builder@kpurdon-builder"]
 enabled = true
-
-[plugins."iterm2@kpurdon-iterm2"]
-enabled = false
 
 [plugins."codex-app-tools@openai-bundled"]
 enabled = true

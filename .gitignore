@@ -2,6 +2,7 @@
 /*
 !/.gitignore
 !/AGENTS.md
+!/CONTRIBUTING.md
 !/README.md
 !/config.toml
 !/.agents/
@@ -12,4 +13,3 @@
 !/skills/
 /skills/*
 !/skills/chrome-validation/
-!/skills-lock.json
