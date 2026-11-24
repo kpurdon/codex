@@ -1,17 +1,14 @@
 # Personal Codex home
 
-The main checkout is `CODEX_HOME`. It holds [personal guidance](AGENTS.md), the default [config.toml](config.toml), and personal skills. [Dotfiles](https://github.com/kpurdon/dotfiles) configure the shell and launchers.
+Personal configuration and skills for Codex.
 
-## Setup
+## Install
 
-Ask Codex to set up this home or invoke [`$setup-codex`](.agents/skills/setup-codex/SKILL.md) to install missing dependencies and verify readiness.
+With Codex installed, clone the repository and run the [setup skill](.agents/skills/setup-codex/SKILL.md).
 
 ```sh
+git clone git@github.com:kpurdon/codex.git "$HOME/code/github.com/kpurdon/codex"
 codex -C "$HOME/code/github.com/kpurdon/codex" 'Use $setup-codex to set up this Codex home.'
 ```
 
-Use [`$chrome-validation`](skills/chrome-validation/SKILL.md) for native Chrome validation.
-
-## Local state
-
-Credentials, sessions, memories, and installed dependencies are ignored. Use worktrees to edit tracked files and review config diffs before committing because clients can update machine-specific settings.
+Set `CODEX_HOME` to the checkout. The [dotfiles](https://github.com/kpurdon/dotfiles) configure this for shell sessions.
