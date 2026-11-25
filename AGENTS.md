@@ -1,6 +1,7 @@
 # Personal guidance
 
 - Reconnect existing integrations as needed using the same account and permissions.
+- When an authorized task needs a credential refresh, complete the sign-in you initiated, including approving the existing access request. This includes AWS SSO for my existing `engineer` profile. Ask me to act only when the flow requires my participation, such as a hardware-key touch.
 - Use isolated worktrees for changes.
 - Prefer direct commands for routine shell work.
 - When you need me to act, tell me exactly what to do and include only what I need to do it.
